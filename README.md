@@ -61,5 +61,5 @@ This script performs the following tasks:
 
 Feel free to contribute to this project by submitting pull requests or reporting issues.
 ```
-![image](https://github.com/jose-litium/ubuntu_cleanup/assets/172591425/7725d136-216e-4874-854a-7457cd3b7c06)
+![Captura desde 2024-06-28 16-12-51](https://github.com/jose-litium/ubuntu_cleanup/assets/172591425/d1906bc7-88fe-4aa5-b5e4-4bb3f86ec19e)
 
