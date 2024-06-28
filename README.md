@@ -60,7 +60,5 @@ This script performs the following tasks:
 - Use caution when granting execute permissions (`chmod +x`) to scripts from untrusted sources.
 
 Feel free to contribute to this project by submitting pull requests or reporting issues.
-```
-![captura](https://github.com/jose-litium/ubuntu_cleanup/assets/172591425/d0d53cf9-4ab2-4c01-944d-31dab25e4f24)
 
 
