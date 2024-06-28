@@ -61,5 +61,5 @@ This script performs the following tasks:
 
 Feel free to contribute to this project by submitting pull requests or reporting issues.
 ```
+![image](https://github.com/jose-litium/ubuntu_cleanup/assets/172591425/7725d136-216e-4874-854a-7457cd3b7c06)
 
-This plain text version includes all the steps and additional instructions as requested. You can copy and paste it directly into your README file for your Ubuntu cleanup and optimization repository.
