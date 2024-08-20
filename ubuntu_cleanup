@@ -1,30 +1,91 @@
 #!/bin/bash
 
-# Check if running with sudo
-if [ "$(id -u)" != "0" ]; then
-    echo "Please run this script with sudo:"
-    echo "sudo $0"
-    exit 1
-fi
+# Function to clean the system cache
+clean_system_cache() {
+    echo "Cleaning system cache..."
+    sudo apt-get clean
+    sudo apt-get autoclean
+    echo "System cache cleaned."
+}
 
-# Update package repositories and upgrade installed packages
-echo "Updating package repositories and upgrading installed packages..."
-apt-get update
-apt-get upgrade -y
+# Function to remove unused packages
+remove_unused_packages() {
+    echo "Removing unused packages..."
+    sudo apt-get autoremove -y
+    echo "Unused packages removed."
+}
 
-# Install essential packages if not already installed
-echo "Installing essential packages..."
-apt-get install -y wget git nano
+# Function to remove residual configuration files
+remove_residual_configs() {
+    echo "Removing residual configuration files..."
+    sudo apt-get purge $(dpkg -l | awk '/^rc/ { print $2 }')
+    echo "Residual configuration files removed."
+}
 
-# Clean up package cache and remove unnecessary packages
-echo "Cleaning up..."
-apt-get clean
-apt-get autoclean
-apt-get autoremove --purge
+# Function to clean user files
+clean_user_files() {
+    echo "Cleaning trash and temporary files..."
+    rm -rf ~/.local/share/Trash/* /tmp/*
+    echo "Trash and temporary files cleaned."
+}
 
-# Increase VRAM (example; adjust as needed)
-echo "Increasing VRAM..."
-# Example command; adjust according to your hardware and needs
-echo 256 > /sys/class/drm/card0/device/mem
+# Function to close a specific process
+close_process() {
+    read -p "Enter the PID of the process you want to close: " pid
+    sudo kill $pid
+    echo "Process with PID $pid closed."
+}
 
-echo "Ubuntu cleanup and optimization complete."
+# Function to forcibly close a specific process
+force_close_process() {
+    read -p "Enter the PID of the process you want to force close: " pid
+    sudo kill -9 $pid
+    echo "Process with PID $pid forcibly closed."
+}
+
+# Function to close all processes of a specific user
+close_user_processes() {
+    read -p "Enter the username whose processes you want to close: " username
+    sudo pkill -u $username
+    echo "Processes of user $username closed."
+}
+
+# Function to update and optimize the system
+update_system() {
+    echo "Updating and optimizing the system..."
+    sudo apt-get update && sudo apt-get upgrade -y
+    echo "System updated and optimized."
+}
+
+# Main menu
+while true; do
+    clear
+    echo "========================================="
+    echo "          Cleanup Options"
+    echo "========================================="
+    echo "1. Clean system cache"
+    echo "2. Remove unused packages"
+    echo "3. Remove residual configuration files"
+    echo "4. Clean trash and temporary files"
+    echo "5. Close a specific process"
+    echo "6. Force close a specific process"
+    echo "7. Close all processes of a specific user"
+    echo "8. Update and optimize the system"
+    echo "9. Exit"
+    echo "========================================="
+    read -p "Enter an option: " option
+
+    case $option in
+        1) clean_system_cache ;;
+        2) remove_unused_packages ;;
+        3) remove_residual_configs ;;
+        4) clean_user_files ;;
+        5) close_process ;;
+        6) force_close_process ;;
+        7) close_user_processes ;;
+        8) update_system ;;
+        9) echo "Exiting..."; exit ;;
+        *) echo "Invalid option. Please try again." ;;
+    esac
+    read -p "Press [Enter] to continue..."
+done
